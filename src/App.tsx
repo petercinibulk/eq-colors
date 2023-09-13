@@ -15,6 +15,7 @@ function App() {
   const [separation, setSeparation] = useState(360);
   const [saturation, setSaturation] = useState(1);
   const [brightness, setBrightness] = useState(1);
+  const [locked, setLocked] = useState([false, false, false, false]);
 
   const interval = separation / numColors;
 
@@ -73,31 +74,39 @@ function App() {
           </div>
           <SliderLabelValue
             label="Rotation"
+            locked={locked[0]}
             value={rotation}
             max={360}
             step={1}
             onValueChange={setRotation}
+            onLockChange={value => setLocked(arr => arr.map((l, i) => (i == 0 ? value : l)))}
           />
           <SliderLabelValue
             label="Separation"
+            locked={locked[1]}
             value={separation}
             max={360}
             step={1}
             onValueChange={setSeparation}
+            onLockChange={value => setLocked(arr => arr.map((l, i) => (i == 1 ? value : l)))}
           />
           <SliderLabelValue
             label="Saturation"
+            locked={locked[2]}
             value={saturation}
             max={1}
             step={0.01}
             onValueChange={setSaturation}
+            onLockChange={value => setLocked(arr => arr.map((l, i) => (i == 2 ? value : l)))}
           />
           <SliderLabelValue
             label="Brightness"
+            locked={locked[3]}
             value={brightness}
             max={1}
             step={0.01}
             onValueChange={setBrightness}
+            onLockChange={value => setLocked(arr => arr.map((l, i) => (i == 3 ? value : l)))}
           />
           <div className="flex space-x-2">
             <Button
@@ -117,10 +126,10 @@ function App() {
               className="flex-1"
               variant="outline"
               onClick={() => {
-                setRotation(Math.floor(Math.random() * 360));
-                setSeparation(Math.floor(Math.random() * 360));
-                setSaturation(Number(Math.random().toFixed(2)));
-                setBrightness(Number(Math.random().toFixed(2)));
+                if (!locked[0]) setRotation(Math.floor(Math.random() * 360));
+                if (!locked[1]) setSeparation(Math.floor(Math.random() * 360));
+                if (!locked[2]) setSaturation(Number(Math.random().toFixed(2)));
+                if (!locked[3]) setBrightness(Number(Math.random().toFixed(2)));
               }}
             >
               Randomize
