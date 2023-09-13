@@ -99,18 +99,33 @@ function App() {
             step={0.01}
             onValueChange={setBrightness}
           />
-          <Button
-            variant="outline"
-            onClick={() => {
-              setNumColors(3);
-              setRotation(360);
-              setSeparation(360);
-              setSaturation(1);
-              setBrightness(1);
-            }}
-          >
-            Reset
-          </Button>
+          <div className="flex space-x-2">
+            <Button
+              className="flex-1"
+              variant="outline"
+              onClick={() => {
+                setNumColors(3);
+                setRotation(360);
+                setSeparation(360);
+                setSaturation(1);
+                setBrightness(1);
+              }}
+            >
+              Reset
+            </Button>
+            <Button
+              className="flex-1"
+              variant="outline"
+              onClick={() => {
+                setRotation(Math.floor(Math.random() * 360));
+                setSeparation(Math.floor(Math.random() * 360));
+                setSaturation(Number(Math.random().toFixed(2)));
+                setBrightness(Number(Math.random().toFixed(2)));
+              }}
+            >
+              Randomize
+            </Button>
+          </div>
         </div>
         <div className="space-y-2 mb-4">{colorComponents}</div>
         <div ref={colorPickerRef} style={{ pointerEvents: 'none' }} />
